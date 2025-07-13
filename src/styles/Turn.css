@@ -1,0 +1,18 @@
+.turn {
+	display: flex;
+	flex-direction: row;
+	/* gap: 1rem; */
+	font-size: 2rem;
+	font-weight: 500;
+	/* user-select: none; */
+}
+
+.turn__X,
+.turn__O {
+	padding: 0.4rem 1rem;
+}
+
+.turn--my-turn {
+	color: white;
+	background-color: rgb(61, 94, 183);
+}
