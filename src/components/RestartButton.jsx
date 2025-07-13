@@ -1,5 +1,9 @@
 import "../styles/RestartButton.css";
 
-export default function RestartButton() {
-	return <button className="restart-button">RESTART</button>;
+export default function RestartButton(props) {
+	return (
+		<button className="restart-button" onClick={props.restart}>
+			RESTART
+		</button>
+	);
 }
