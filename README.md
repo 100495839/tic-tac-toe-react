@@ -1,3 +1,3 @@
 # tic-tac-toe-react
 
-Practicing some React
+Inspired by [midudev](https://youtu.be/qkzcjwnueLA?si=COpUyF-btS0msVuv)
