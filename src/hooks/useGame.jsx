@@ -47,7 +47,7 @@ export function useGame() {
 				cellID: lastMove.current.cellID,
 			});
 
-			console.log(gameResult);
+			// console.log(gameResult, winCells);
 
 			if (gameResult === GAME_RESULT.CONTINUE) {
 				// Pass turn to the next player

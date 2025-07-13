@@ -8,6 +8,7 @@ const checkColumnWin = ({ board, player, cellID }) => {
 	const cellColumn = cellID % BOARD_DIMENSION;
 	// Check if all cells of that column have "player"
 	let winCells = [];
+
 	const isColumnWin = board.every((cell, index) => {
 		if (index % BOARD_DIMENSION === cellColumn) {
 			winCells.push(index);
@@ -15,6 +16,7 @@ const checkColumnWin = ({ board, player, cellID }) => {
 		}
 		return true;
 	});
+
 	return { isColumnWin, winCells };
 };
 
@@ -22,6 +24,7 @@ const checkRowWin = ({ board, player, cellID }) => {
 	const cellRow = Math.floor(cellID / BOARD_DIMENSION);
 	// Check if all cells of that row have "player"
 	let winCells = [];
+
 	const isRowWin = board.every((cell, index) => {
 		if (Math.floor(index / BOARD_DIMENSION) === cellRow) {
 			winCells.push(index);
@@ -29,6 +32,7 @@ const checkRowWin = ({ board, player, cellID }) => {
 		}
 		return true;
 	});
+
 	return { isRowWin, winCells };
 };
 
@@ -37,16 +41,13 @@ const checkDiagonalWin = ({ board, player, cellID }) => {
 	let isDiagonalWin = false;
 
 	DIAGONALS.forEach((diagonal) => {
-		if (diagonal.includes(cellID)) {
-			winCells = diagonal;
+		if (!isDiagonalWin) {
+			winCells = [];
+			isDiagonalWin = diagonal.every((cellID) => {
+				winCells.push(cellID);
+				return board[cellID] === player;
+			});
 		}
-	});
-	if (winCells.length === 0) {
-		return { isDiagonalWin };
-	}
-
-	isDiagonalWin = winCells.every((cellID) => {
-		return board[cellID] === player;
 	});
 
 	return { isDiagonalWin, winCells };
@@ -58,7 +59,7 @@ const checkWin = ({ board, player, cellID }) => {
 		return { isWin: false };
 	}
 
-	const { isColumnWin, winCellsColumn } = checkColumnWin({
+	const { isColumnWin, winCells: winCellsColumn } = checkColumnWin({
 		board,
 		player,
 		cellID,
@@ -67,7 +68,7 @@ const checkWin = ({ board, player, cellID }) => {
 		return { isWin: true, winCells: winCellsColumn };
 	}
 
-	const { isRowWin, winCellsRow } = checkRowWin({
+	const { isRowWin, winCells: winCellsRow } = checkRowWin({
 		board,
 		player,
 		cellID,
@@ -76,8 +77,7 @@ const checkWin = ({ board, player, cellID }) => {
 		return { isWin: true, winCells: winCellsRow };
 	}
 
-	// Check diagonal win (if applicable)
-	const { isDiagonalWin, winCellsDiagonal } = checkDiagonalWin({
+	const { isDiagonalWin, winCells: winCellsDiagonal } = checkDiagonalWin({
 		board,
 		player,
 		cellID,
