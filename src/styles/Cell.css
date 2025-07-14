@@ -15,7 +15,6 @@
 
 .cell:hover,
 .cell--winner {
-	/* cursor: pointer; */
 	outline-color: rgb(61, 94, 183);
 	background-color: rgb(242, 240, 255);
 	color: rgb(61, 94, 183);
@@ -23,13 +22,6 @@
 
 .cell--winner {
 	animation: win 0.5s linear;
-}
-
-.cell--is-filled:hover {
-	cursor: auto;
-	outline-color: #888;
-	background-color: rgb(236, 236, 236);
-	color: #888;
 }
 
 @keyframes win {

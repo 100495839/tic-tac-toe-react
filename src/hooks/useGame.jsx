@@ -30,9 +30,9 @@ const reducer = (state, action) => {
 		const newWinCells = newStatus === GAME_RESULT.WIN ? winCells : [];
 
 		// turn
-		let newTurn = state.turn;
+		let newTurn;
 		if (newStatus === GAME_RESULT.CONTINUE) {
-			newTurn = newTurn === TURN_STATE.X ? TURN_STATE.O : TURN_STATE.X;
+			newTurn = state.turn === TURN_STATE.X ? TURN_STATE.O : TURN_STATE.X;
 		} else {
 			newTurn = TURN_STATE.GAME_FINISHED;
 		}
@@ -69,7 +69,6 @@ export function useGame() {
 	const updateCell = (cellID) => {
 		dispatch({ type: ACTION_TYPES.MOVE, cellID });
 	};
-
 	const restart = () => {
 		dispatch({ type: ACTION_TYPES.RESTART });
 	};
