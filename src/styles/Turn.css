@@ -1,14 +1,18 @@
 .turn {
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
 	/* gap: 1rem; */
 	font-size: 2rem;
 	font-weight: 500;
 	/* user-select: none; */
+	align-items: center;
+	height: 4rem;
 }
 
 .turn__X,
 .turn__O {
+	text-align: center;
 	padding: 0.4rem 1rem;
 	border-radius: 10px;
 }

@@ -1,8 +1,12 @@
 import "../styles/Cell.css";
 
 export default function Cell(props) {
+	const cellClassName = `cell ${props.isWinner ? "cell--winner" : ""}`;
 	return (
-		<div className="cell" onClick={() => props.updateCell(props.id)}>
+		<div
+			className={cellClassName}
+			onClick={() => props.updateCell(props.id)}
+		>
 			{props.content}
 		</div>
 	);

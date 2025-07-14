@@ -10,6 +10,7 @@ export default function Board(props) {
 					id={index}
 					content={cell}
 					updateCell={props.updateCell}
+					isWinner={props.winCells.includes(index)}
 				/>
 			);
 		});

@@ -6,3 +6,7 @@
 	width: 20rem;
 	gap: 10px;
 }
+
+.board:hover {
+	cursor: pointer;
+}

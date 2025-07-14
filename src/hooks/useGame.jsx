@@ -10,6 +10,11 @@ import { checkGameResult } from "../logic/logic";
 export function useGame() {
 	const [board, setBoard] = useState(BOARD_STATE.EMPTY);
 	const [turn, setTurn] = useState(TURN_STATE.X);
+	const [game, setGame] = useState({
+		status: GAME_RESULT.CONTINUE,
+		winner: null,
+		winCells: [],
+	});
 	const lastMove = useRef({
 		player: null,
 		cellID: null,
@@ -18,7 +23,7 @@ export function useGame() {
 	const updateCell = (cellID) => {
 		if (
 			board[cellID] === CELL_STATE.EMPTY &&
-			turn !== TURN_STATE.GAME_FINISHED
+			game.status === GAME_RESULT.CONTINUE
 		) {
 			lastMove.current.player = turn;
 			lastMove.current.cellID = cellID;
@@ -34,20 +39,36 @@ export function useGame() {
 		lastMove.current.player = null;
 		lastMove.current.cellID = null;
 		setBoard(BOARD_STATE.EMPTY);
+		setTurn(TURN_STATE.X);
+		setGame((prevGame) => {
+			return {
+				...prevGame,
+				status: GAME_RESULT.CONTINUE,
+				winCells: [],
+			};
+		});
 	};
 
 	// Manage turn
 	useEffect(() => {
-		if (board === BOARD_STATE.EMPTY) {
-			setTurn(TURN_STATE.X);
-		} else {
+		if (board !== BOARD_STATE.EMPTY) {
 			const { gameResult, winCells } = checkGameResult({
 				board,
 				player: lastMove.current.player,
 				cellID: lastMove.current.cellID,
 			});
 
-			// console.log(gameResult, winCells);
+			setGame((prevGame) => {
+				return {
+					...prevGame,
+					status: gameResult,
+					winner:
+						gameResult === GAME_RESULT.WIN
+							? lastMove.current.player
+							: null,
+					winCells: gameResult === GAME_RESULT.WIN ? winCells : [],
+				};
+			});
 
 			if (gameResult === GAME_RESULT.CONTINUE) {
 				// Pass turn to the next player
@@ -56,11 +77,9 @@ export function useGame() {
 						? TURN_STATE.O
 						: TURN_STATE.X;
 				});
-			} else {
-				setTurn(TURN_STATE.GAME_FINISHED);
 			}
 		}
 	}, [board]);
 
-	return { board, turn, updateCell, restart };
+	return { board, turn, game, updateCell, restart };
 }
