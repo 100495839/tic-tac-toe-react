@@ -21,7 +21,10 @@ export default function Main() {
 				updateCell={updateCell}
 				winCells={game.winCells}
 			/>
-			<RestartButton restart={restart} />
+			<RestartButton
+				restart={restart}
+				isGameOver={game.status !== GAME_RESULT.CONTINUE}
+			/>
 		</main>
 	);
 }
