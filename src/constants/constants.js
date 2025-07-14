@@ -17,6 +17,12 @@ export const TURN_STATE = {
 	GAME_FINISHED: "GAME_FINISHED",
 };
 
+export const WINNER_STATE = {
+	X: "X",
+	O: "O",
+	NO_ONE: null,
+};
+
 export const BOARD_STATE = {
 	EMPTY: Array(9).fill(CELL_STATE.EMPTY),
 	WIN_X_NOT_FULL: ["X", "O", "O", null, "X", null, null, null, "X"],
@@ -28,4 +34,9 @@ export const GAME_RESULT = {
 	WIN: "WIN",
 	TIE: "TIE",
 	CONTINUE: "CONTINUE",
+};
+
+export const ACTION_TYPES = {
+	MOVE: "MOVE",
+	RESTART: "RESTART",
 };
